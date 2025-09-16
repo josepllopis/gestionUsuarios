@@ -26,12 +26,14 @@ async function cargarUsuarios(){
   const usuarios = await request.json();
     let listaUsuarios = '';
 for(let usuario of usuarios){
-    let botonEliminar = '<a href="#" onclick="eliminarUsuario('+usuario.id+')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>'
+    let botones = '<a href="#" onclick="eliminarUsuario('+usuario.id+')" style="margin-right:10px" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>'
 
 let telefono = usuario.telefono == null ? "-" : usuario.telefono;
-    let usuarioHtml = ' <tr><td>'+usuario.id+'</td><td>'+usuario.nombre+'</td><td>'+usuario.email+'</td><td>'+telefono+'</td><td>'+botonEliminar+'</td></tr>'
+    let usuarioHtml = ' <tr><td>'+usuario.id+'</td><td>'+usuario.nombre+'</td><td>'+usuario.email+'</td><td>'+telefono+'</td><td>'+botones+'</td></tr>'
     listaUsuarios+=usuarioHtml;
 }
+
+listaUsuarios+='<tr><td colspan="5" style="text-align: center;"><b>AÑADIR NUEVO USUARIO<b><br><a href="./registrar.html" class="btn btn-success btn-circle"><i class="fas fa-plus"></i></a></td></tr>';
 
 document.querySelector('#usuarios tbody').outerHTML = listaUsuarios;
   console.log("usuarios");

@@ -3,6 +3,15 @@ $(document).ready(function() {
 // en ready
 });
 
+
+function getHeaders(){
+    return {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token
+    };
+}
+
 async function registrarUsuarios(){
 
 let datos = {}
@@ -21,10 +30,7 @@ if(datos.password != repeatPassword){
 
   const request = await fetch('/api/insertar', {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers: getHeaders(),
     body: JSON.stringify(datos)
   });
   window.location.href = "http://localhost:8080/usuarios.html";

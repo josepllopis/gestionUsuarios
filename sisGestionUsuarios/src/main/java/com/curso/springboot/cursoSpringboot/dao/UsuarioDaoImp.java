@@ -46,13 +46,14 @@ public class UsuarioDaoImp implements UsuarioDao{
 
 
         if(!usersMail.isEmpty()){
+            System.out.println("Llego a entrar aqui");
             Usuario userLog = usersMail.getFirst().get();
             if (argon2.verify(userLog.getPassword(), user.getPassword())) {
                 return usersMail.getFirst(); // login exitoso
             }
         }
 
-
+        System.out.println("Aqúi no hay playa");
         return Optional.empty();
 
     }

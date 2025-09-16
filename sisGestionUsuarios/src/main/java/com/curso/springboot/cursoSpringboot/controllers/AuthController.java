@@ -26,9 +26,10 @@ public class AuthController {
         if (userLogin.isPresent()) {
             System.out.println("El ID del usuario es: "+userLogin.get().getId());
             String tokenJWT = jwtutil.create(String.valueOf(userLogin.get().getId()),userLogin.get().getEmail());
-
+            System.out.println("Token válido: "+tokenJWT);
             return tokenJWT;
         }
+        System.out.println("Token no válido");
             return "NO";
 
     }
