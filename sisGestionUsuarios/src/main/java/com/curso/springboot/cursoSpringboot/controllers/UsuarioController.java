@@ -33,22 +33,17 @@ public class UsuarioController {
         return new Usuario(Long.parseLong(id),"Lucas","Moy","josepllopis33@gmail.com","603825187");
     }
 
-    /*@GetMapping("/usuario45")
-    public Usuario editarUsuario(){
 
-        return new Usuario("Bosiete","Sanchis Miravalles","bosiete@gmail.com","603825187");
-    }
-
-    @GetMapping("/usuario343")
-    public Usuario eliminarUsuario(){
-
-        return new Usuario("Alberto","Metrekit","Alberto@gmail.com","603825187");
-    }*/
 
     @GetMapping("/listausuarios")
     public ResponseEntity<List<Usuario>> devolverUsuarios(@RequestHeader(value="Authorization")String token){
         List<Usuario> usuarios = userDao.getUsuarios();
-
+        System.out.println("Estoy aquiiii 1");
+        if(token==null){
+            System.out.println("No existe");
+        }else{
+            System.out.println("Soy el token: "+token);
+        }
         if(!validarToken(token)){
             System.out.println("No hay na");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
