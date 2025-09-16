@@ -25,6 +25,8 @@ public class UsuarioController {
     @Autowired
     private JWTUtil jwtUtil;
 
+
+
     @GetMapping("/usuario/{id}")
     public Usuario getUsuario(@PathVariable String id){
 
