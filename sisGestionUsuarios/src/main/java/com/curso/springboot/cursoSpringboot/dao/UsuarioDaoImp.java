@@ -40,6 +40,15 @@ public class UsuarioDaoImp implements UsuarioDao{
     }
 
     @Override
+    public Optional<Usuario> actualizarUsuario(long id, Usuario usuario) {
+        return repo.findById(id).map(existe->{
+            existe.setNombre(usuario.getNombre());
+            existe.setApellidos(usuario.getApellidos());
+            return repo.save(existe);
+        });
+    }
+
+    @Override
     public Optional<Usuario> login(Usuario user) {
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         List<Optional<Usuario>> usersMail = repo.findByEmail(user.getEmail());

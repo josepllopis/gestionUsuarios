@@ -27,10 +27,11 @@ public class UsuarioController {
 
 
 
-    @GetMapping("/usuario/{id}")
-    public Usuario getUsuario(@PathVariable String id){
-
-        return new Usuario(Long.parseLong(id),"Lucas","Moy","josepllopis33@gmail.com","603825187");
+    @PutMapping("/usuario/{id}")
+    public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
+        return userDao.actualizarUsuario(id, usuario)
+                .map(ResponseEntity::ok)                  // 200 OK con el objeto actualizado
+                .orElse(ResponseEntity.notFound().build()); // 404 Not Found si no existe
     }
 
 
