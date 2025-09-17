@@ -10,6 +10,6 @@ public interface UsuarioDao {
     List<Usuario> getUsuarios();
     void eliminarUsuario(Long id);
     Usuario insertarUsuario(Usuario usuario);
-
+    Optional<Usuario> actualizarUsuario(long id,Usuario usuario);
     Optional<Usuario> login(Usuario user);
 }

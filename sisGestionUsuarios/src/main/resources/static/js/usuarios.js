@@ -26,10 +26,10 @@ async function cargarUsuarios(){
   const usuarios = await request.json();
     let listaUsuarios = '';
 for(let usuario of usuarios){
-    let botones = '<a href="#" onclick="eliminarUsuario('+usuario.id+')" style="margin-right:10px" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a><a href="#" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>'
+    let botones = '<a href="#" onclick="eliminarUsuario('+usuario.id+')" style="margin-right:10px" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a><a href="javascript:void(0)" onclick="actualizarUsuario('+usuario.id+')" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>'
 
 let telefono = usuario.telefono == null ? "-" : usuario.telefono;
-    let usuarioHtml = ' <tr><td>'+usuario.id+'</td><td>'+usuario.nombre+'</td><td>'+usuario.email+'</td><td>'+telefono+'</td><td>'+botones+'</td></tr>'
+    let usuarioHtml = ' <tr><td>'+usuario.id+'</td><td>'+usuario.nombre+' '+usuario.apellidos+'</td><td>'+usuario.email+'</td><td>'+telefono+'</td><td>'+botones+'</td></tr>'
     listaUsuarios+=usuarioHtml;
 }
 
@@ -59,5 +59,34 @@ const request = await fetch('/api/borrar/'+id, {
 function emailUsuario(){
     document.getElementById('txt-email-usuario').outerHTML = localStorage.email;
 }
+
+function actualizarUsuario(id) {
+
+ console.log("Holaaaaaa");
+    Swal.fire({
+      title: 'Actualizar Usuario',
+      html: `
+        <input id="nombre" class="swal2-input" placeholder="Nombre">
+        <input id="apellidos" class="swal2-input" placeholder="Apellidos">
+      `,
+      confirmButtonText: 'Actualizar',
+      showCancelButton: true,
+      preConfirm: () => {
+        const data = {
+          nombre : document.getElementById('nombre').value,
+          apellidos : document.getElementById('apellidos').value,
+        };
+        return fetch(`/api/usuario/${id}`, {
+          method: 'PUT',
+          headers: getHeaders(),
+          body: JSON.stringify(data)
+        }).then(r => {
+          if (!r.ok) throw new Error();
+          Swal.fire('Éxito', 'Usuario actualizado', 'success');
+          cargarUsuarios();
+        }).catch(() => Swal.fire('Error', 'No se pudo actualizar el usuario', 'error'));
+      }
+    });
+  }
 
 
