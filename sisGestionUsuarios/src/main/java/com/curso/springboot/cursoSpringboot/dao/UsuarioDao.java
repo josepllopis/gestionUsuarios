@@ -1,5 +1,7 @@
 package com.curso.springboot.cursoSpringboot.dao;
 
+import com.curso.springboot.cursoSpringboot.dto.UsuarioRequestDTO;
+import com.curso.springboot.cursoSpringboot.dto.UsuarioResponseDTO;
 import com.curso.springboot.cursoSpringboot.models.Usuario;
 
 import java.util.List;
@@ -7,9 +9,9 @@ import java.util.Optional;
 
 public interface UsuarioDao {
 
-    List<Usuario> getUsuarios();
+    List<UsuarioResponseDTO> getUsuarios();
     void eliminarUsuario(Long id);
-    Usuario insertarUsuario(Usuario usuario);
-    Optional<Usuario> actualizarUsuario(long id,Usuario usuario);
-    Optional<Usuario> login(Usuario user);
+    UsuarioResponseDTO insertarUsuario(UsuarioRequestDTO usuario);
+    //Optional<UsuarioResponseDTO> actualizarUsuario(long id, UsuarioRequestDTO usuario);
+    UsuarioResponseDTO login(UsuarioRequestDTO user);
 }

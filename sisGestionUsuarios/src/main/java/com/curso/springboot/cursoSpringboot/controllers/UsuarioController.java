@@ -2,6 +2,8 @@ package com.curso.springboot.cursoSpringboot.controllers;
 
 
 import com.curso.springboot.cursoSpringboot.dao.UsuarioDao;
+import com.curso.springboot.cursoSpringboot.dto.UsuarioRequestDTO;
+import com.curso.springboot.cursoSpringboot.dto.UsuarioResponseDTO;
 import com.curso.springboot.cursoSpringboot.models.Usuario;
 import com.curso.springboot.cursoSpringboot.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
@@ -27,18 +29,18 @@ public class UsuarioController {
 
 
 
-    @PutMapping("/usuario/{id}")
+   /* @PutMapping("/usuario/{id}")
     public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
         return userDao.actualizarUsuario(id, usuario)
                 .map(ResponseEntity::ok)                  // 200 OK con el objeto actualizado
                 .orElse(ResponseEntity.notFound().build()); // 404 Not Found si no existe
-    }
+    }*/
 
 
 
     @GetMapping("/listausuarios")
-    public ResponseEntity<List<Usuario>> devolverUsuarios(@RequestHeader(value="Authorization")String token){
-        List<Usuario> usuarios = userDao.getUsuarios();
+    public ResponseEntity<List<UsuarioResponseDTO>> devolverUsuarios(@RequestHeader(value="Authorization")String token){
+        List<UsuarioResponseDTO> usuarios = userDao.getUsuarios();
         System.out.println("Estoy aquiiii 1");
         if(token==null){
             System.out.println("No existe");
@@ -83,14 +85,15 @@ public class UsuarioController {
         }
     }
 
+
     @PostMapping("/insertar")
-    public ResponseEntity<Usuario> insertarUsuario(@RequestHeader(value="Authorization")String token, @RequestBody Usuario user){
+    public ResponseEntity<UsuarioResponseDTO> insertarUsuario(@RequestHeader(value="Authorization")String token, @RequestBody UsuarioRequestDTO user){
 
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
 
         String hash = argon2.hash(1,1024,1,user.getPassword());
         user.setPassword(hash);
-        Usuario usuarioGuardado = userDao.insertarUsuario(user);
+        UsuarioResponseDTO usuarioGuardado = userDao.insertarUsuario(user);
 
         String idUser = jwtUtil.getKey(token);
         System.out.println(token);
