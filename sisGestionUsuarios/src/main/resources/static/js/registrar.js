@@ -33,7 +33,7 @@ if(datos.password != repeatPassword){
     headers: getHeaders(),
     body: JSON.stringify(datos)
   });
-  window.location.href = "http://localhost:8080/usuarios.html";
+  window.location.href = "http://localhost:8082/usuarios.html";
 
 }
 
