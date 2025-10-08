@@ -26,7 +26,7 @@ async function cargarUsuarios(){
   const usuarios = await request.json();
     let listaUsuarios = '';
 for(let usuario of usuarios){
-    let botones = `<a href="#" onclick="eliminarUsuario('+usuario.id+')" style="margin-right:10px" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a><a href="javascript:void(0)" onclick="actualizarUsuario(${usuario.id},'${usuario.email}')" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>`
+    let botones = `<a href="#" onclick="eliminarUsuario(${usuario.id})" style="margin-right:10px" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a><a href="javascript:void(0)" onclick="actualizarUsuario(${usuario.id},'${usuario.email}','${usuario.nombre}','${usuario.apellidos}')" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>`
 
 let telefono = usuario.telefono == null ? "-" : usuario.telefono;
     let usuarioHtml = ' <tr><td>'+usuario.id+'</td><td>'+usuario.nombre+' '+usuario.apellidos+'</td><td>'+usuario.email+'</td><td>'+telefono+'</td><td>'+botones+'</td></tr>'
@@ -60,16 +60,17 @@ function emailUsuario(){
     document.getElementById('txt-email-usuario').outerHTML = localStorage.email;
 }
 
-function actualizarUsuario(id,email) {
+function actualizarUsuario(id,email,nombre,apellidos) {
 
+alert('Payaso')
  console.log("Holaaaaaa");
     Swal.fire({
       title: 'Actualizar Usuario',
       html: `
         <input id="id" class="swal2-input" placeholder="ID: ${id}" readonly>
         <input id="email" class="swal2-input" placeholder="Email: ${email}" readonly>
-        <input id="nombre" class="swal2-input" placeholder="Nombre">
-        <input id="apellidos" class="swal2-input" placeholder="Apellidos">
+        <input id="nombre" class="swal2-input" value="${nombre}">
+        <input id="apellidos" class="swal2-input" value="${apellidos}">
       `,
       confirmButtonText: 'Actualizar',
       showCancelButton: true,

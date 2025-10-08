@@ -12,6 +12,6 @@ public interface UsuarioDao {
     List<UsuarioResponseDTO> getUsuarios();
     void eliminarUsuario(Long id);
     UsuarioResponseDTO insertarUsuario(UsuarioRequestDTO usuario);
-    //Optional<UsuarioResponseDTO> actualizarUsuario(long id, UsuarioRequestDTO usuario);
+    Optional<UsuarioResponseDTO> actualizarUsuario(long id, UsuarioRequestDTO usuario);
     UsuarioResponseDTO login(UsuarioRequestDTO user);
 }

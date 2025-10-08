@@ -46,15 +46,16 @@ public class UsuarioDaoImp implements UsuarioDao{
         repo.save(user);
         return mapper.toResponse(user);
     }
-/*
+
     @Override
     public Optional<UsuarioResponseDTO> actualizarUsuario(long id, UsuarioRequestDTO usuario) {
         return repo.findById(id).map(existe->{
             existe.setNombre(usuario.getNombre());
             existe.setApellidos(usuario.getApellidos());
-            return repo.save(existe);
+            repo.save(existe);
+            return mapper.toResponse(existe);
         });
-    }*/
+    }
 
     @Override
     public UsuarioResponseDTO login(UsuarioRequestDTO user) {

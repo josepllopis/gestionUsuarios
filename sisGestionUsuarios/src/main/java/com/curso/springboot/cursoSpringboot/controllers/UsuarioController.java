@@ -29,12 +29,12 @@ public class UsuarioController {
 
 
 
-   /* @PutMapping("/usuario/{id}")
-    public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
+    @PutMapping("/usuario/{id}")
+    public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable int id, @RequestBody UsuarioRequestDTO usuario) {
         return userDao.actualizarUsuario(id, usuario)
                 .map(ResponseEntity::ok)                  // 200 OK con el objeto actualizado
                 .orElse(ResponseEntity.notFound().build()); // 404 Not Found si no existe
-    }*/
+    }
 
 
 
