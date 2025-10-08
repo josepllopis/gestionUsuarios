@@ -1,6 +1,8 @@
 package com.curso.springboot.cursoSpringboot.controllers;
 
 import com.curso.springboot.cursoSpringboot.dao.UsuarioDao;
+import com.curso.springboot.cursoSpringboot.dto.UsuarioRequestDTO;
+import com.curso.springboot.cursoSpringboot.dto.UsuarioResponseDTO;
 import com.curso.springboot.cursoSpringboot.models.Usuario;
 import com.curso.springboot.cursoSpringboot.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,12 @@ public class AuthController {
     private JWTUtil jwtutil;
 
     @PostMapping("/api/login")
-    public String iniciarSesion(@RequestBody Usuario user){
+    public String iniciarSesion(@RequestBody UsuarioRequestDTO user){
 
-        Optional<Usuario> userLogin = userDao.login(user);
-        if (userLogin.isPresent()) {
-            System.out.println("El ID del usuario es: "+userLogin.get().getId());
-            String tokenJWT = jwtutil.create(String.valueOf(userLogin.get().getId()),userLogin.get().getEmail());
+        UsuarioResponseDTO userLogin = userDao.login(user);
+        if (userLogin!=null) {
+            System.out.println("El ID del usuario es: "+userLogin.getId());
+            String tokenJWT = jwtutil.create(String.valueOf(userLogin.getId()),userLogin.getEmail());
             System.out.println("Token válido: "+tokenJWT);
             return tokenJWT;
         }
